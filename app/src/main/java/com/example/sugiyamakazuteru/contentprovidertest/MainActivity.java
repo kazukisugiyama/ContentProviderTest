@@ -12,11 +12,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // コンテンツプロバイダURIを定義
+        
 
-        TextView text = (TextView) findViewById(R.id.textView);
+
+/*        TextView text = (TextView) findViewById(R.id.textView);
+        // 画面の明るさをContentProviderより取得
         String btext = Settings.System.getString
                 (this.getContentResolver(), "screen_brightness");
 
-        text.setText("画面の明るさは、" + btext);
+        text.setText("画面の明るさは、" + btext);*/
     }
 }
