@@ -7,14 +7,15 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class TestDB extends SQLiteOpenHelper {
 
-    // DB名、テーブル情報定義
-    public final String DB_NAME = "PohoneBookDB.db";
+    // DB、テーブル情報定義
+    private final String DB_NAME = "PohoneBookDB.db";
+    private final int DB_VERSION = 1;
     public final String DB_TABLE_NAME = "PhoneBookTable";
     public final String COL_NAME = "PhoneNumber";
 
-    // 主キー設定
+    // テーブル作成処理
     private final String STRING_CREATE = "CREATE TABLE " + DB_TABLE_NAME +
-            "(_id INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_NAME + "TEXT);";
+            "(INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_NAME + ");";
 
     public TestDB(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -22,10 +23,10 @@ public class TestDB extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        // DBにテーブル作成
+        // テーブル作成
         sqLiteDatabase.execSQL(STRING_CREATE);
 
-        // DBに値を入れる
+        // カラムを指定し値を入れる
         ContentValues cv= new ContentValues(1);
         cv.put("PhoneNumber","090-2188-7711");
         sqLiteDatabase.insert("PhoneBookTable", null, cv);
@@ -38,6 +39,7 @@ public class TestDB extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+        // DB変更処理時にドロップする　暫定
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + DB_TABLE_NAME);
     }
 }
